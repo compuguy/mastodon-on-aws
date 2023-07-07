@@ -148,7 +148,7 @@ Resources:
         AlertingModule: !GetAtt 'Alerting.Outputs.StackName'
         ClientSgModule1: !GetAtt 'ClientSg.Outputs.StackName'
         ManagedPolicyArns: !Ref S3Policy
-        AppImage: 'ghcr.io/glitch-soc/mastodon:c25ba31e95148fb1d1809720b9060a0c1891a23b'
+        AppImage: 'compuguy/mastodon-glitch-soc:4.1.4'
         AppCommand: 'bash,-c,bundle exec rails db:migrate && bundle exec rails s -p 3000'
         AppPort: '3000'
         AppEnvironment1Key: 'LOCAL_DOMAIN'
@@ -221,7 +221,7 @@ Resources:
         AlertingModule: !GetAtt 'Alerting.Outputs.StackName'
         ClientSgModule1: !GetAtt 'ClientSg.Outputs.StackName'
         ManagedPolicyArns: !Ref S3Policy
-        AppImage: 'ghcr.io/glitch-soc/mastodon:c25ba31e95148fb1d1809720b9060a0c1891a23b'
+        AppImage: 'compuguy/mastodon-glitch-soc:4.1.4'
         AppCommand: 'bash,-c,node ./streaming'
         AppPort: '4000'
         AppEnvironment1Key: 'LOCAL_DOMAIN'
@@ -293,7 +293,7 @@ Resources:
         AlertingModule: !GetAtt 'Alerting.Outputs.StackName'
         ClientSgModule1: !GetAtt 'ClientSg.Outputs.StackName'
         ManagedPolicyArns: !Ref S3Policy
-        AppImage: 'ghcr.io/glitch-soc/mastodon:c25ba31e95148fb1d1809720b9060a0c1891a23b'
+        AppImage: 'compuguy/mastodon-glitch-soc:4.1.4'
         AppCommand: 'bash,-c,bundle exec sidekiq -q default -q push -q pull -q ingress'
         AppEnvironment1Key: 'LOCAL_DOMAIN'
         AppEnvironment1Value: !Ref DomainName
@@ -364,7 +364,7 @@ Resources:
         AlertingModule: !GetAtt 'Alerting.Outputs.StackName'
         ClientSgModule1: !GetAtt 'ClientSg.Outputs.StackName'
         ManagedPolicyArns: !Ref S3Policy
-        AppImage: 'ghcr.io/glitch-soc/mastodon:c25ba31e95148fb1d1809720b9060a0c1891a23b'
+        AppImage: 'compuguy/mastodon-glitch-soc:4.1.4'
         AppCommand: 'bash,-c,bundle exec sidekiq -q default -q pull -q push -q ingress'
         AppEnvironment1Key: 'LOCAL_DOMAIN'
         AppEnvironment1Value: !Ref DomainName
@@ -435,7 +435,7 @@ Resources:
         AlertingModule: !GetAtt 'Alerting.Outputs.StackName'
         ClientSgModule1: !GetAtt 'ClientSg.Outputs.StackName'
         ManagedPolicyArns: !Ref S3Policy
-        AppImage: 'ghcr.io/glitch-soc/mastodon:c25ba31e95148fb1d1809720b9060a0c1891a23b'
+        AppImage: 'compuguy/mastodon-glitch-soc:4.1.4'
         AppCommand: 'bash,-c,bundle exec sidekiq -q scheduler'
         AppEnvironment1Key: 'LOCAL_DOMAIN'
         AppEnvironment1Value: !Ref DomainName
@@ -506,7 +506,7 @@ Resources:
         AlertingModule: !GetAtt 'Alerting.Outputs.StackName'
         ClientSgModule1: !GetAtt 'ClientSg.Outputs.StackName'
         ManagedPolicyArns: !Ref S3Policy
-        AppImage: 'ghcr.io/glitch-soc/mastodon:c25ba31e95148fb1d1809720b9060a0c1891a23b'
+        AppImage: 'compuguy/mastodon-glitch-soc:4.1.4'
         AppCommand: 'bash,-c,bundle exec sidekiq -q mailers -q scheduler'
         AppEnvironment1Key: 'LOCAL_DOMAIN'
         AppEnvironment1Value: !Ref DomainName
