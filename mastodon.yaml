@@ -436,7 +436,7 @@ Resources:
         ClientSgModule1: !GetAtt 'ClientSg.Outputs.StackName'
         ManagedPolicyArns: !Ref S3Policy
         AppImage: 'compuguy/mastodon-glitch-soc:4.1.4'
-        AppCommand: 'bash,-c,bundle exec sidekiq -q pull -q  -q push -q ingress'
+        AppCommand: 'bash,-c,bundle exec sidekiq -q pull -q default -q push -q ingress'
         AppEnvironment1Key: 'LOCAL_DOMAIN'
         AppEnvironment1Value: !Ref DomainName
         AppEnvironment2Key: 'REDIS_HOST'
