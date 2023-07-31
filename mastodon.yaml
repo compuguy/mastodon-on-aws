@@ -79,7 +79,7 @@ Resources:
         DynamoDBEndpoint: true
         FlowLog: 'reject-only'
         FlowLogRetentionInDays: 14
-        NatGateways: false
+        NatGateways: true
       TemplateURL: './node_modules/@cfn-modules/vpc/module.yml'
   ClientSg:
     Type: 'AWS::CloudFormation::Stack'
@@ -347,7 +347,7 @@ Resources:
         MaxCapacity: '1'
         MinCapacity: '1'
         LogsRetentionInDays: '14'
-        SubnetsReach: 'Public'
+        SubnetsReach: 'Private'
         AutoScaling: 'false'
         HealthCheckGracePeriodSeconds: '120'
         Spot: !Ref Spot
@@ -418,7 +418,7 @@ Resources:
         MaxCapacity: '1'
         MinCapacity: '1'
         LogsRetentionInDays: '14'
-        SubnetsReach: 'Public'
+        SubnetsReach: 'Private'
         AutoScaling: 'false'
         HealthCheckGracePeriodSeconds: '120'
         Spot: !Ref Spot
@@ -489,7 +489,7 @@ Resources:
         MaxCapacity: '1'
         MinCapacity: '1'
         LogsRetentionInDays: '14'
-        SubnetsReach: 'Public'
+        SubnetsReach: 'Private'
         AutoScaling: 'false'
         HealthCheckGracePeriodSeconds: '120'
         Spot: !Ref Spot
@@ -560,7 +560,7 @@ Resources:
         MaxCapacity: '1'
         MinCapacity: '1'
         LogsRetentionInDays: '14'
-        SubnetsReach: 'Public'
+        SubnetsReach: 'Private'
         AutoScaling: 'false'
         HealthCheckGracePeriodSeconds: '120'
         Spot: !Ref Spot
@@ -631,7 +631,7 @@ Resources:
         MaxCapacity: '1'
         MinCapacity: '1'
         LogsRetentionInDays: '14'
-        SubnetsReach: 'Public'
+        SubnetsReach: 'Private'
         AutoScaling: 'false'
         HealthCheckGracePeriodSeconds: '120'
         Spot: !Ref Spot
@@ -702,7 +702,7 @@ Resources:
         MaxCapacity: '1'
         MinCapacity: '1'
         LogsRetentionInDays: '14'
-        SubnetsReach: 'Public'
+        SubnetsReach: 'Private'
         AutoScaling: 'false'
         HealthCheckGracePeriodSeconds: '120'
         Spot: !Ref Spot
