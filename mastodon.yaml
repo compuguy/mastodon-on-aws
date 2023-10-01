@@ -137,6 +137,8 @@ Resources:
   Cluster:
     Type: 'AWS::CloudFormation::Stack'
     Properties:
+      Parameters:
+        ContainerInsights: 'enabled'
       TemplateURL: './node_modules/@cfn-modules/ecs-cluster/module.yml'
   WebService:
     Type: 'AWS::CloudFormation::Stack'
@@ -148,7 +150,7 @@ Resources:
         AlertingModule: !GetAtt 'Alerting.Outputs.StackName'
         ClientSgModule1: !GetAtt 'ClientSg.Outputs.StackName'
         ManagedPolicyArns: !Ref S3Policy
-        AppImage: 'ghcr.io/glitch-soc/mastodon:nightly-2023-08-13'
+        AppImage: 'ghcr.io/glitch-soc/mastodon:nightly.2023-09-22'
         AppCommand: 'bash,-c,bundle exec rails db:migrate && bundle exec rails s -p 3000'
         AppPort: '3000'
         AppEnvironment1Key: 'LOCAL_DOMAIN'
@@ -197,11 +199,11 @@ Resources:
         AppEnvironment21Value: !GetAtt 'CloudFront.Outputs.DistributionDomainName'
         AppEnvironment22Key: 'S3_PERMISSION'
         AppEnvironment22Value: 'private'
-        Cpu: '0.25'
+        Cpu: '0.5'
         Memory: '1'
         DesiredCount: '2'
         MaxCapacity: '3'
-        MinCapacity: '2'
+        MinCapacity: '1'
         LogsRetentionInDays: '14'
         SubnetsReach: 'Public'
         AutoScaling: 'true'
@@ -221,7 +223,7 @@ Resources:
         AlertingModule: !GetAtt 'Alerting.Outputs.StackName'
         ClientSgModule1: !GetAtt 'ClientSg.Outputs.StackName'
         ManagedPolicyArns: !Ref S3Policy
-        AppImage: 'ghcr.io/glitch-soc/mastodon:nightly-2023-08-13'
+        AppImage: 'ghcr.io/glitch-soc/mastodon:nightly.2023-09-22'
         AppCommand: 'bash,-c,node ./streaming'
         AppPort: '4000'
         AppEnvironment1Key: 'LOCAL_DOMAIN'
@@ -293,7 +295,7 @@ Resources:
         AlertingModule: !GetAtt 'Alerting.Outputs.StackName'
         ClientSgModule1: !GetAtt 'ClientSg.Outputs.StackName'
         ManagedPolicyArns: !Ref S3Policy
-        AppImage: 'ghcr.io/glitch-soc/mastodon:nightly-2023-08-13'
+        AppImage: 'ghcr.io/glitch-soc/mastodon:nightly.2023-09-22'
         AppCommand: 'bash,-c,bundle exec sidekiq -q default -q push -q pull -q ingress'
         AppEnvironment1Key: 'LOCAL_DOMAIN'
         AppEnvironment1Value: !Ref DomainName
@@ -341,7 +343,7 @@ Resources:
         AppEnvironment21Value: !GetAtt 'CloudFront.Outputs.DistributionDomainName'
         AppEnvironment22Key: 'S3_PERMISSION'
         AppEnvironment22Value: 'private'
-        Cpu: '0.5'
+        Cpu: '0.25'
         Memory: '1'
         DesiredCount: '1'
         MaxCapacity: '1'
@@ -364,7 +366,7 @@ Resources:
   #       AlertingModule: !GetAtt 'Alerting.Outputs.StackName'
   #       ClientSgModule1: !GetAtt 'ClientSg.Outputs.StackName'
   #       ManagedPolicyArns: !Ref S3Policy
-  #       AppImage: 'ghcr.io/glitch-soc/mastodon:nightly-2023-08-13'
+  #       AppImage: 'ghcr.io/glitch-soc/mastodon:nightly.2023-09-22'
   #       AppCommand: 'bash,-c,bundle exec sidekiq -q default -q pull -q push -q ingress'
   #       AppEnvironment1Key: 'LOCAL_DOMAIN'
   #       AppEnvironment1Value: !Ref DomainName
@@ -435,7 +437,7 @@ Resources:
         AlertingModule: !GetAtt 'Alerting.Outputs.StackName'
         ClientSgModule1: !GetAtt 'ClientSg.Outputs.StackName'
         ManagedPolicyArns: !Ref S3Policy
-        AppImage: 'ghcr.io/glitch-soc/mastodon:nightly-2023-08-13'
+        AppImage: 'ghcr.io/glitch-soc/mastodon:nightly.2023-09-22'
         AppCommand: 'bash,-c,bundle exec sidekiq -q pull -q default -q push -q ingress'
         AppEnvironment1Key: 'LOCAL_DOMAIN'
         AppEnvironment1Value: !Ref DomainName
@@ -506,7 +508,7 @@ Resources:
   #       AlertingModule: !GetAtt 'Alerting.Outputs.StackName'
   #       ClientSgModule1: !GetAtt 'ClientSg.Outputs.StackName'
   #       ManagedPolicyArns: !Ref S3Policy
-  #       AppImage: 'ghcr.io/glitch-soc/mastodon:nightly-2023-08-13'
+  #       AppImage: 'ghcr.io/glitch-soc/mastodon:nightly.2023-09-22'
   #       AppCommand: 'bash,-c,bundle exec sidekiq -q push -q default -q pull -q ingress'
   #       AppEnvironment1Key: 'LOCAL_DOMAIN'
   #       AppEnvironment1Value: !Ref DomainName
@@ -577,7 +579,7 @@ Resources:
         AlertingModule: !GetAtt 'Alerting.Outputs.StackName'
         ClientSgModule1: !GetAtt 'ClientSg.Outputs.StackName'
         ManagedPolicyArns: !Ref S3Policy
-        AppImage: 'ghcr.io/glitch-soc/mastodon:nightly-2023-08-13'
+        AppImage: 'ghcr.io/glitch-soc/mastodon:nightly.2023-09-22'
         AppCommand: 'bash,-c,bundle exec sidekiq -q scheduler'
         AppEnvironment1Key: 'LOCAL_DOMAIN'
         AppEnvironment1Value: !Ref DomainName
@@ -648,7 +650,7 @@ Resources:
         AlertingModule: !GetAtt 'Alerting.Outputs.StackName'
         ClientSgModule1: !GetAtt 'ClientSg.Outputs.StackName'
         ManagedPolicyArns: !Ref S3Policy
-        AppImage: 'ghcr.io/glitch-soc/mastodon:nightly-2023-08-13'
+        AppImage: 'ghcr.io/glitch-soc/mastodon:nightly.2023-09-22'
         AppCommand: 'bash,-c,bundle exec sidekiq -q mailers -q scheduler'
         AppEnvironment1Key: 'LOCAL_DOMAIN'
         AppEnvironment1Value: !Ref DomainName
