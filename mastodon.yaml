@@ -38,6 +38,11 @@ Parameters:
     Description: 'Provisioned storage for MySQL database (RDS)'
     Type: String
     Default: '5'
+  ContainerInsights:
+    Description: 'Enable detailed container monitoring.'
+    Type: String
+    Default: enabled
+    AllowedValues: [enabled, disabled]
 Resources:
   Alerting:
     Type: 'AWS::CloudFormation::Stack'
@@ -79,7 +84,7 @@ Resources:
         DynamoDBEndpoint: true
         FlowLog: 'reject-only'
         FlowLogRetentionInDays: 14
-        NatGateways: true
+        NatGateways: false
       TemplateURL: './node_modules/@cfn-modules/vpc/module.yml'
   ClientSg:
     Type: 'AWS::CloudFormation::Stack'
@@ -138,7 +143,7 @@ Resources:
     Type: 'AWS::CloudFormation::Stack'
     Properties:
       Parameters:
-        ContainerInsights: 'enabled'
+        ContainerInsights: !Ref ContainerInsights
       TemplateURL: './node_modules/@cfn-modules/ecs-cluster/module.yml'
   WebService:
     Type: 'AWS::CloudFormation::Stack'
@@ -349,7 +354,7 @@ Resources:
         MaxCapacity: '3'
         MinCapacity: '1'
         LogsRetentionInDays: '14'
-        SubnetsReach: 'Private'
+        SubnetsReach: 'Public'
         AutoScaling: 'true'
         HealthCheckGracePeriodSeconds: '120'
         Spot: !Ref Spot
@@ -420,7 +425,7 @@ Resources:
         MaxCapacity: '3'
         MinCapacity: '1'
         LogsRetentionInDays: '14'
-        SubnetsReach: 'Private'
+        SubnetsReach: 'Public'
         AutoScaling: 'true'
         HealthCheckGracePeriodSeconds: '120'
         Spot: !Ref Spot
@@ -491,7 +496,7 @@ Resources:
   #       MaxCapacity: '1'
   #       MinCapacity: '1'
   #       LogsRetentionInDays: '14'
-  #       SubnetsReach: 'Private'
+  #       SubnetsReach: 'Public'
   #       AutoScaling: 'false'
   #       HealthCheckGracePeriodSeconds: '120'
   #       Spot: !Ref Spot
@@ -562,7 +567,7 @@ Resources:
   #       MaxCapacity: '1'
   #       MinCapacity: '1'
   #       LogsRetentionInDays: '14'
-  #       SubnetsReach: 'Private'
+  #       SubnetsReach: 'Public'
   #       AutoScaling: 'false'
   #       HealthCheckGracePeriodSeconds: '120'
   #       Spot: !Ref Spot
@@ -633,7 +638,7 @@ Resources:
         MaxCapacity: '1'
         MinCapacity: '1'
         LogsRetentionInDays: '14'
-        SubnetsReach: 'Private'
+        SubnetsReach: 'Public'
         AutoScaling: 'false'
         HealthCheckGracePeriodSeconds: '120'
         Spot: !Ref Spot
