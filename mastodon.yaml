@@ -709,7 +709,7 @@ Resources:
         MaxCapacity: '1'
         MinCapacity: '1'
         LogsRetentionInDays: '14'
-        SubnetsReach: 'Private'
+        SubnetsReach: 'Public'
         AutoScaling: 'false'
         HealthCheckGracePeriodSeconds: '120'
         Spot: !Ref Spot
