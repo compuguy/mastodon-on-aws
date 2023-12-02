@@ -633,7 +633,7 @@ Resources:
         AppEnvironment22Key: 'S3_PERMISSION'
         AppEnvironment22Value: 'private'
         Cpu: '0.25'
-        Memory: '0.5'
+        Memory: '1'
         DesiredCount: '1'
         MaxCapacity: '1'
         MinCapacity: '1'
