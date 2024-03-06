@@ -6,7 +6,7 @@ The architecture consists of the following building blocks.
 
 * Application Load Balancer (ALB)
 * ECS and Fargate
-* RDS Aurora Serverless
+* RDS Aurora Serverless v1
 * ElastiCache (Redis)
 * S3
 * SES
@@ -132,4 +132,14 @@ IaC based on [cfn-modules](https://github.com/cfn-modules/docs).
 $ npm install
 $ aws cloudformation package --template-file mastodon.yaml --s3-bucket <S3_BUCKET> --output-template-file packaged.yml
 $ aws cloudformation deploy --template-file packaged.yml --stack-name mastodon-on-aws --capabilities CAPABILITY_IAM --parameter-overrides "DomainName=<DOMAIN_NAME>" "SecretKeyBase=<SECRET_KEY_BASE>" "OtpSecret=<OTP_SECRET>" "VapidPrivateKey=<VAPID_PRIVATE_KEY>" "VapidPublicKey=<VAPID_PUBLIC_KEY>"
+```
+
+Push Mastodon container image to ECR Public.
+
+```
+MASTODON_VERSION="v4.2.7"
+docker pull --platform linux/arm64 ghcr.io/mastodon/mastodon:${MASTODON_VERSION}
+docker image tag ghcr.io/mastodon/mastodon:${MASTODON_VERSION} public.ecr.aws/h6i3a8b9/mastodon:${MASTODON_VERSION}
+aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/h6i3a8b9
+docker push public.ecr.aws/h6i3a8b9/mastodon:${MASTODON_VERSION}
 ```
