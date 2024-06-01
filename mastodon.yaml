@@ -21,6 +21,18 @@ Parameters:
     Description: 'Mastodon config VAPID_PUBLIC_KEY (README explains how to gennerate the key)'
     Type: String
     NoEcho: true
+  ActiveRecordEncyptionDeterministicKey:
+    Description: 'Mastodon config ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY'
+    Type: String
+    NoEcho: true
+  ActiveRecordEncryptionKeyDerivationSalt:
+    Description: 'Mastodon config ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT'
+    Type: String
+    NoEcho: true
+  ActiveRecordEncyptionPrimaryKey:
+    Description: 'Mastodon config ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY'
+    Type: String
+    NoEcho: true
   Spot:
     Description: 'Reduce costs and decrease availability by running on Fargate Spot?'
     Type: String
@@ -208,6 +220,12 @@ Resources:
         AppEnvironment21Value: !GetAtt 'CloudFront.Outputs.DistributionDomainName'
         AppEnvironment22Key: 'S3_PERMISSION'
         AppEnvironment22Value: 'private'
+        AppEnvironment23Key: 'ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY'
+        AppEnvironment23Value: !Ref ActiveRecordEncyptionDeterministicKey
+        AppEnvironment24Key: 'ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT'
+        AppEnvironment24Value: !Ref ActiveRecordEncryptionKeyDerivationSalt
+        AppEnvironment25Key: 'ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY'
+        AppEnvironment25Value: !Ref ActiveRecordEncyptionPrimaryKey
         Cpu: '0.5'
         Memory: '1'
         DesiredCount: '1'
@@ -223,6 +241,8 @@ Resources:
         ExecuteCommand: true
       TemplateURL: './node_modules/@cfn-modules/fargate-service/module.yml'
   StreamingApiService:
+    DependsOn:
+    - WebService
     Type: 'AWS::CloudFormation::Stack'
     Properties:
       Parameters:
@@ -281,6 +301,12 @@ Resources:
         AppEnvironment21Value: !GetAtt 'CloudFront.Outputs.DistributionDomainName'
         AppEnvironment22Key: 'S3_PERMISSION'
         AppEnvironment22Value: 'private'
+        AppEnvironment23Key: 'ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY'
+        AppEnvironment23Value: !Ref ActiveRecordEncyptionDeterministicKey
+        AppEnvironment24Key: 'ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT'
+        AppEnvironment24Value: !Ref ActiveRecordEncryptionKeyDerivationSalt
+        AppEnvironment25Key: 'ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY'
+        AppEnvironment25Value: !Ref ActiveRecordEncyptionPrimaryKey
         Cpu: '0.25'
         Memory: '0.5'
         DesiredCount: '1'
@@ -296,6 +322,8 @@ Resources:
         ExecuteCommand: true
       TemplateURL: './node_modules/@cfn-modules/fargate-service/module.yml'
   SidekiqServiceDefaultPushPull:
+    DependsOn:
+    - WebService
     Type: 'AWS::CloudFormation::Stack'
     Properties:
       Parameters:
@@ -352,6 +380,12 @@ Resources:
         AppEnvironment21Value: !GetAtt 'CloudFront.Outputs.DistributionDomainName'
         AppEnvironment22Key: 'S3_PERMISSION'
         AppEnvironment22Value: 'private'
+        AppEnvironment23Key: 'ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY'
+        AppEnvironment23Value: !Ref ActiveRecordEncyptionDeterministicKey
+        AppEnvironment24Key: 'ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT'
+        AppEnvironment24Value: !Ref ActiveRecordEncryptionKeyDerivationSalt
+        AppEnvironment25Key: 'ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY'
+        AppEnvironment25Value: !Ref ActiveRecordEncyptionPrimaryKey
         Cpu: '0.25'
         Memory: '1'
         DesiredCount: '1'
@@ -367,6 +401,8 @@ Resources:
         ExecuteCommand: true
       TemplateURL: './node_modules/@cfn-modules/fargate-service/module.yml'
   SidekiqServiceDefaultPullPush:
+    DependsOn:
+    - WebService
     Type: 'AWS::CloudFormation::Stack'
     Properties:
       Parameters:
@@ -423,6 +459,12 @@ Resources:
         AppEnvironment21Value: !GetAtt 'CloudFront.Outputs.DistributionDomainName'
         AppEnvironment22Key: 'S3_PERMISSION'
         AppEnvironment22Value: 'private'
+        AppEnvironment23Key: 'ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY'
+        AppEnvironment23Value: !Ref ActiveRecordEncyptionDeterministicKey
+        AppEnvironment24Key: 'ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT'
+        AppEnvironment24Value: !Ref ActiveRecordEncryptionKeyDerivationSalt
+        AppEnvironment25Key: 'ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY'
+        AppEnvironment25Value: !Ref ActiveRecordEncyptionPrimaryKey
         Cpu: '0.25'
         Memory: '1'
         DesiredCount: '1'
@@ -438,6 +480,8 @@ Resources:
         ExecuteCommand: true
       TemplateURL: './node_modules/@cfn-modules/fargate-service/module.yml'
   SidekiqServiceMailers:
+    DependsOn:
+    - WebService
     Type: 'AWS::CloudFormation::Stack'
     Properties:
       Parameters:
@@ -494,6 +538,12 @@ Resources:
         AppEnvironment21Value: !GetAtt 'CloudFront.Outputs.DistributionDomainName'
         AppEnvironment22Key: 'S3_PERMISSION'
         AppEnvironment22Value: 'private'
+        AppEnvironment23Key: 'ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY'
+        AppEnvironment23Value: !Ref ActiveRecordEncyptionDeterministicKey
+        AppEnvironment24Key: 'ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT'
+        AppEnvironment24Value: !Ref ActiveRecordEncryptionKeyDerivationSalt
+        AppEnvironment25Key: 'ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY'
+        AppEnvironment25Value: !Ref ActiveRecordEncyptionPrimaryKey
         Cpu: '0.25'
         Memory: '0.5'
         DesiredCount: '1'
@@ -509,6 +559,8 @@ Resources:
         ExecuteCommand: true
       TemplateURL: './node_modules/@cfn-modules/fargate-service/module.yml'
   ScheduledTask:
+    DependsOn:
+    - WebService
     Type: 'AWS::CloudFormation::Stack'
     Properties:
       Parameters:
@@ -565,6 +617,12 @@ Resources:
         AppEnvironment21Value: !GetAtt 'CloudFront.Outputs.DistributionDomainName'
         AppEnvironment22Key: 'S3_PERMISSION'
         AppEnvironment22Value: 'private'
+        AppEnvironment23Key: 'ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY'
+        AppEnvironment23Value: !Ref ActiveRecordEncyptionDeterministicKey
+        AppEnvironment24Key: 'ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT'
+        AppEnvironment24Value: !Ref ActiveRecordEncryptionKeyDerivationSalt
+        AppEnvironment25Key: 'ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY'
+        AppEnvironment25Value: !Ref ActiveRecordEncyptionPrimaryKey
         Cpu: '1'
         Memory: '2'
         LogsRetentionInDays: '14'
