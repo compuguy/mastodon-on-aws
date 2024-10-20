@@ -10,9 +10,9 @@
     "@cfn-modules/cloudwatch-dashboard": "^1.6.0",
     "@cfn-modules/ecs-alb-target": "^1.4.0",
     "@cfn-modules/ecs-cluster": "^1.2.0",
-    "@cfn-modules/elasticache-redis": "^1.0.1",
-    "@cfn-modules/fargate-scheduled-task": "^1.6.0",
-    "@cfn-modules/fargate-service": "^2.14.1",
+    "@cfn-modules/elasticache-redis": "^1.1.0",
+    "@cfn-modules/fargate-scheduled-task": "^1.7.0",
+    "@cfn-modules/fargate-service": "^2.15.1",
     "@cfn-modules/kms-key": "^1.2.1",
     "@cfn-modules/lb-dns-record": "^1.1.1",
     "@cfn-modules/rds-aurora-serverless-postgres": "^1.1.0",
@@ -23,5 +23,5 @@
     "@cfn-modules/ssh-bastion": "^1.4.4",
     "@cfn-modules/vpc": "^2.1.0"
   },
-  "version": "0.23.0"
+  "version": "0.24.0"
 }

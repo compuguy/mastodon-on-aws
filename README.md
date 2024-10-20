@@ -52,6 +52,12 @@ c528b5cbb0236e4b0c2fe38a6d7ed1edc5fa12608c67a45690e225f005bad8bfbabfa99f7b83cb9c
 $ bundle exec rake mastodon:webpush:generate_vapid_key
 VAPID_PRIVATE_KEY=am3vlPBGQGv7Rl3xOKXSv7lRYyWfZITItb88FXX9IOs=
 VAPID_PUBLIC_KEY=BMGkIr1PaK4v7Kut7q7eoHtWxu9gEBQ5BeV28xOIR9c9VIvDWvOViTn1SV5G2LIEFGWo0f1dQka-UynR58WMn2Y=
+
+# Generate ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY, ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT, and ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY
+$ bundle exec rake db:encryption:init
+ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY=V2FgMcCXJDCBythgGzWvhIDqiA8TUr2k
+ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT=otljXH8L0xL1sPwyfOTHGCk5r6uohkCM
+ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY=JnC6I2X2iTVfiu2KNRThvc3fSJnJhCOH
 ```
 
 ### Configure the domain name
@@ -124,6 +130,19 @@ Here is how you update your infrastructure.
 1. Choose the option `Replace current template` with `https://s3.eu-central-1.amazonaws.com/mastodon-on-aws-cloudformation/latest/quickstart.yml`.
 1. Go through the rest of the wizard and keep the defaults.
 
+### v0.24.0
+
+Upgrading to Mastodon 4.3 requires to set three new CloudFormation parameters:
+
+```
+ActiveRecordEncryptionDeterministicKey
+ActiveRecordEncryptionKeyDerivationSalt
+ActiveRecordEncryptionPrimaryKey
+```
+
+Create the values for those parameters as described above (see [Installation](#Installation) instructions).
+
+
 ## Development
 
 IaC based on [cfn-modules](https://github.com/cfn-modules/docs).
@@ -137,9 +156,13 @@ $ aws cloudformation deploy --template-file packaged.yml --stack-name mastodon-o
 Push Mastodon container image to ECR Public.
 
 ```
-MASTODON_VERSION="v4.2.12"
+MASTODON_VERSION="v4.3.0"
 docker pull --platform linux/amd64 ghcr.io/mastodon/mastodon:${MASTODON_VERSION}
 docker image tag ghcr.io/mastodon/mastodon:${MASTODON_VERSION} public.ecr.aws/h6i3a8b9/mastodon:${MASTODON_VERSION}
 aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/h6i3a8b9
 docker push public.ecr.aws/h6i3a8b9/mastodon:${MASTODON_VERSION}
+docker pull --platform linux/amd64 ghcr.io/mastodon/mastodon-streaming:${MASTODON_VERSION}
+docker image tag ghcr.io/mastodon/mastodon-streaming:${MASTODON_VERSION} public.ecr.aws/h6i3a8b9/mastodon-streaming:${MASTODON_VERSION}
+aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/h6i3a8b9
+docker push public.ecr.aws/h6i3a8b9/mastodon-streaming:${MASTODON_VERSION}
 ```
